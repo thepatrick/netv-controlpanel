@@ -6,7 +6,7 @@ var cModel;
 var o = new DOMParser();
 o = o.parseFromString("<data>null</data>", "text/xml");
 
-var keyPressedArray = new Array();
+var keyPressed = {};
 
 // -------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------
@@ -50,8 +50,8 @@ function fOnLoad()
 		//~ fDbg(event.which);
 		
 		var keycode = event.which;
-		var isRepeat = (keyPressedArray[""+keycode] == true) ? true : false;
-		keyPressedArray[""+keycode] = true;
+		var isRepeat = keyPressed[keycode] === true;
+		keyPressed[keycode] = true;
 		
 		//event.preventDefault();
 		if (keycode == 37)			fButtonPress('left', 1, isRepeat);
@@ -66,7 +66,7 @@ function fOnLoad()
 	
 	$(document).keyup(function(event)
 	{
-		keyPressedArray[""+event.which] = false;
+		keyPressed[event.which] = false;
 		return true;
 	});
 
@@ -129,8 +129,7 @@ function fLoadExtJSScript(
 // -------------------------------------------------------------------------------------------------
 //	fCheckForRedirection	
 // -------------------------------------------------------------------------------------------------
-function fCheckForRedirection(
-)
+function fCheckForRedirection()
 {
 	// conveninent development mode
 	if (location.search.indexOf("standalone") > -1)
@@ -248,12 +247,12 @@ function fTickerEvents(
 //~ fDbg(vEventMessage);
 //~ fDbg("----- image just received ----");
 //~ fDbg(vEventImage);
-vEventMessage = decodeURIComponent(vEventMessage);
-vEventTitle = decodeURIComponent(vEventTitle);
-vEventImage = decodeURIComponent(vEventImage);
-vEventType = decodeURIComponent(vEventType);
-vEventLevel = decodeURIComponent(vEventLevel);
-vEventVer = decodeURIComponent(vEventVer);
+	vEventMessage = decodeURIComponent(vEventMessage);
+	vEventTitle = decodeURIComponent(vEventTitle);
+	vEventImage = decodeURIComponent(vEventImage);
+	vEventType = decodeURIComponent(vEventType);
+	vEventLevel = decodeURIComponent(vEventLevel);
+	vEventVer = decodeURIComponent(vEventVer);
 //~ fDbg("----- message decoded ----");
 //~ fDbg(vEventMessage);
 //~ fDbg("----- image path decoded ----");
